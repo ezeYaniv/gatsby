@@ -34,7 +34,7 @@ export async function getServerData({ params }) {
     const res = await fetch(`https://graphql.us.fauna.com/graphql`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + "fnAEOAc4LUAAQ2AQav5bHwl0oIE_oJ_la671zoib",
+        Authorization: "Bearer " + "fnAEOAwMuqAAQ_Zq9a4Al40FHnYUvHbAh9NvgLUh",
       },
       body: JSON.stringify({
         query: `

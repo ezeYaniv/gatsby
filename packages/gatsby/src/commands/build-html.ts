@@ -188,8 +188,9 @@ export const buildRenderer = async (
 export const buildSSRRenderer = async (
   program: IProgram,
   pages: any,
+  mode: "production" | "development",
   parentSpan?: IActivity
-): Promise<{ rendererPath: string; waitForCompilerClose }> => {
+): Promise<Array<any>> => {
   const { directory } = program
   // TODO refactor to virtual files or improve bundling
 
@@ -261,9 +262,12 @@ const styles = ${JSON.stringify(
             return {
               name: asset,
               rel: `preload`,
-              content: fs
-                .readFileSync(path.join(directory, `public`, asset))
-                .toString(),
+              content:
+                mode === `production`
+                  ? fs
+                      .readFileSync(path.join(directory, `public`, asset))
+                      .toString()
+                  : ``,
             }
           })
         )}
@@ -274,8 +278,6 @@ const scripts = ${JSON.stringify(
         )}
 const reversedStyles = styles.slice(0).reverse();
 const reversedScripts = scripts.slice(0).reverse();
-
-console.log({styles, scripts})
 
 export default async function ssrPage(req, res) {
   const { html } = await ssrRender({
@@ -408,7 +410,7 @@ export default async function ssrPageJson(req, res) {
     ...manifest,
   ])
 
-  await waitForCompilerClose
+  return manifest
 }
 
 export const deleteRenderer = async (rendererPath: string): Promise<void> => {

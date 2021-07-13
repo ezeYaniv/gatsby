@@ -225,7 +225,7 @@ module.exports = async function build(program: IBuildArgs): Promise<void> {
       }
     }
 
-    await buildSSRRenderer(program, ssrPages)
+    await buildSSRRenderer(program, ssrPages, `production`)
   } catch (err) {
     console.log(err)
   }

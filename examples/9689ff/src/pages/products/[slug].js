@@ -3,7 +3,7 @@ import { Layout } from "../../layout/default"
 
 export default function BlogPostTemplate({ serverData }) {
   if (!serverData) {
-    return <div>Server Error</div>
+    return <div>No server data got received</div>
   }
 
   return (
@@ -52,7 +52,10 @@ query findProduct($slug: String!) {
 
     const { data, errors } = await res.json()
     if (errors) {
-      throw new Error("not found")
+      return {
+        name: "UNKNOWN",
+        description: `we couldn't find the product ${params.slug}`,
+      }
     }
 
     if (data) {

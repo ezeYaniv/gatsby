@@ -28,13 +28,13 @@ export default function BlogPostTemplate({ serverData }) {
 }
 
 export async function getServerData({ params }) {
-  const fetch = require("node-fetch")
+  const { default: fetch } = require("node-fetch")
 
   try {
     const res = await fetch(`https://graphql.us.fauna.com/graphql`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + "fnAEN44PLbAAQOAyLZVMZMIA5lnjjKW4BcukdcBN",
+        Authorization: "Bearer " + "fnAEOAc4LUAAQ2AQav5bHwl0oIE_oJ_la671zoib",
       },
       body: JSON.stringify({
         query: `
